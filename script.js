@@ -2,37 +2,12 @@
    DEFAULT DATA
    ============================================================ */
 const defaultData = {
-  name: "Ngô Đức Mạnh",
-  headline: "IT Student at UMT & Software Developer",
-  status: "Sẵn sàng đón nhận cơ hội mới",
-  avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
-  github: "https://github.com/ngoducmanh-nrd",
-  projects: [
-    {
-      id: "1",
-      title: "FlowDrop",
-      desc: "Công cụ chia sẻ tệp đa nền tảng nhanh chóng, an toàn và bảo mật.",
-      tags: ["C++", "Qt"],
-      liveUrl: "",
-      repoUrl: "https://github.com/ngoducmanh-nrd/flowdrop"
-    },
-    {
-      id: "2",
-      title: "Clipboard Manager",
-      desc: "Ứng dụng desktop cho hệ điều hành Windows giúp quản lý lịch sử clipboard hiệu quả.",
-      tags: ["Electron", "JavaScript"],
-      liveUrl: "",
-      repoUrl: "https://github.com/ngoducmanh-nrd/clipboard-manager"
-    },
-    {
-      id: "3",
-      title: "Door Invoice App",
-      desc: "Web app hỗ trợ số hóa quy trình quản lý hóa đơn cho doanh nghiệp vừa và nhỏ.",
-      tags: ["Web", "Fullstack"],
-      liveUrl: "https://example.com/invoice",
-      repoUrl: ""
-    }
-  ]
+  name: "",
+  headline: "",
+  status: "",
+  avatar: "",
+  github: "",
+  projects: []
 };
 
 /* ============================================================
@@ -100,8 +75,14 @@ function renderUI() {
   document.getElementById('heroName').textContent = state.name;
   document.getElementById('heroHeadline').textContent = state.headline;
   document.getElementById('heroStatusText').textContent = state.status;
-  document.getElementById('avatarImage').src = state.avatar;
-  document.getElementById('heroGithub').href = state.github;
+  const avatarEl = document.getElementById('avatarImage');
+  if (state.avatar) {
+    avatarEl.src = state.avatar;
+    avatarEl.classList.remove('hidden');
+  } else {
+    avatarEl.removeAttribute('src');
+    avatarEl.classList.add('hidden');
+  }
   const sidebarGh = document.getElementById('sidebarGithub');
   if (sidebarGh) sidebarGh.href = state.github;
 
@@ -109,6 +90,8 @@ function renderUI() {
   document.getElementById('inputStatus').value = state.status;
   document.getElementById('inputHeadline').value = state.headline;
   document.getElementById('inputAvatar').value = state.avatar;
+  const preview = document.getElementById('avatarPreview');
+  if (preview) preview.src = state.avatar;
   document.getElementById('inputGithub').value = state.github;
 
   const container = document.getElementById('projectsContainer');
@@ -206,6 +189,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const openModal = () => {
     modal.classList.remove('opacity-0', 'pointer-events-none');
     requestAnimationFrame(() => modalContent.classList.remove('scale-95'));
+    // Reset upload status
+    const st = document.getElementById('uploadStatus');
+    if (st) { st.classList.add('hidden'); st.textContent = ''; }
   };
   const closeModal = () => {
     modalContent.classList.add('scale-95');
@@ -215,6 +201,65 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('openEditorBtn').addEventListener('click', () => {
     closeSidebar();
     openModal();
+  });
+  /* ---------- Upload Avatar ---------- */
+  const chooseAvatarBtn = document.getElementById('chooseAvatarBtn');
+  const inputAvatarFile = document.getElementById('inputAvatarFile');
+  const inputAvatar = document.getElementById('inputAvatar');
+  const avatarPreview = document.getElementById('avatarPreview');
+  const uploadStatus = document.getElementById('uploadStatus');
+
+  // Click nút giả → mở file dialog
+  chooseAvatarBtn?.addEventListener('click', () => {
+    if (!window.__supabaseBridge?.isLoggedIn?.()) {
+      showToast('Vui lòng đăng nhập admin trước!');
+      return;
+    }
+    inputAvatarFile.click();
+  });
+
+  // Khi chọn file → upload
+  inputAvatarFile?.addEventListener('change', async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    uploadStatus.classList.remove('hidden');
+    uploadStatus.textContent = 'Đang upload...';
+    uploadStatus.className = 'text-xs text-cyan-400';
+
+    try {
+      const url = await window.__supabaseBridge.uploadAvatar(file);
+      inputAvatar.value = url;
+      avatarPreview.src = url;
+      uploadStatus.textContent = '✅ Upload thành công!';
+      uploadStatus.className = 'text-xs text-emerald-400';
+      showToast('Upload ảnh thành công!');
+    } catch (err) {
+      console.error('Upload failed:', err);
+      uploadStatus.textContent = '❌ Lỗi: ' + (err.message || 'Không rõ');
+      uploadStatus.className = 'text-xs text-red-400';
+      showToast('Upload lỗi: ' + (err.message || ''));
+    } finally {
+      inputAvatarFile.value = '';   // reset để chọn lại cùng file
+    }
+  });
+
+  // Khi gõ link → chỉ đổi preview nếu link thực sự load được
+  inputAvatar?.addEventListener('input', (e) => {
+    const url = e.target.value.trim();
+    if (!url) return;
+
+    const tester = new Image();
+    tester.onload = () => {
+      avatarPreview.src = url;
+      avatarPreview.classList.remove('opacity-50');
+    };
+    tester.onerror = () => {
+      // Không đổi preview, chỉ báo nhẹ
+      avatarPreview.classList.add('opacity-50');
+      console.warn('Ảnh không load được:', url);
+    };
+    tester.src = url;
   });
   document.getElementById('closeEditorBtn').addEventListener('click', closeModal);
   document.getElementById('cancelEditorBtn').addEventListener('click', closeModal);
@@ -273,11 +318,29 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------- Save profile ---------- */
   document.getElementById('profileEditForm').addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    const newAvatar = document.getElementById('inputAvatar').value.trim();
+
+    // Nếu có nhập avatar mới → verify load được
+    if (newAvatar && newAvatar !== state.avatar) {
+      const ok = await new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = newAvatar;
+      });
+      if (!ok) {
+        showToast('Link avatar không load được. Kiểm tra lại hoặc up file mới.');
+        return;
+      }
+    }
+
     state.name = document.getElementById('inputName').value.trim() || state.name;
     state.status = document.getElementById('inputStatus').value.trim() || state.status;
     state.headline = document.getElementById('inputHeadline').value.trim() || state.headline;
-    state.avatar = document.getElementById('inputAvatar').value.trim() || state.avatar;
+    state.avatar = newAvatar || state.avatar;
     state.github = document.getElementById('inputGithub').value.trim() || state.github;
+
     await saveState();
     closeModal();
     showToast('Cập nhật thành công!');

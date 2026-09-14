@@ -104,8 +104,38 @@ window.__supabaseBridge = {
       const { error: insProjErr } = await supabase.from('projects').insert(rows);
       if (insProjErr) throw insProjErr;
     }
+  },
+
+  uploadAvatar: async (file) => {
+    // Validate
+    if (!file.type.startsWith('image/')) {
+      throw new Error('File không phải ảnh');
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      throw new Error('Ảnh quá 2MB');
+    }
+
+    // Tên file duy nhất: timestamp + random
+    const ext = file.name.split('.').pop().toLowerCase();
+    const fileName = `avatar-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+
+    // Upload
+    const { error: upErr } = await supabase.storage
+      .from('avatars')
+      .upload(fileName, file, {
+        cacheControl: '3600',
+        upsert: false
+      });
+
+    if (upErr) throw upErr;
+
+    // Lấy public URL
+    const { data } = supabase.storage.from('avatars').getPublicUrl(fileName);
+    return data.publicUrl;
   }
+
 };
+
 
 /* ============================================================
    BOOTSTRAP

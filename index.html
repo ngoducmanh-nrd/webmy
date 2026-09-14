@@ -199,11 +199,9 @@
           </div>
           <div
             class="relative w-full h-full rounded-full p-1.5 glass-panel flex items-center justify-center overflow-hidden">
-            <img id="avatarImage"
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80"
-              alt="Avatar" class="w-full h-full object-cover rounded-full shadow-inner bg-slate-800" loading="lazy"
-              referrerpolicy="no-referrer"
-              onerror="this.onerror=null;this.src='https://placehold.co/400x400/1e293b/f8fafc?text=Manh'" />
+            <img id="avatarImage" alt="Avatar"
+              class="w-full h-full object-cover rounded-full shadow-inner bg-slate-800 hidden" loading="lazy"
+              referrerpolicy="no-referrer" />
           </div>
         </div>
 
@@ -314,12 +312,34 @@
             class="w-full px-4 py-2.5 rounded-xl bg-slate-900/50 border border-white/10 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 focus:outline-none text-white transition-all shadow-inner resize-none"></textarea>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="space-y-1.5">
-            <label class="block text-xs font-semibold text-slate-400">Link ảnh Avatar</label>
-            <input id="inputAvatar" type="url"
-              class="w-full px-4 py-2.5 rounded-xl bg-slate-900/50 border border-white/10 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 focus:outline-none text-white transition-all shadow-inner" />
+        <div class="space-y-3">
+          <label class="block text-xs font-semibold text-slate-400">Ảnh Avatar</label>
+
+          <div class="flex gap-3 items-start">
+            <!-- Preview -->
+            <img id="avatarPreview"
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80"
+              alt="Preview"
+              class="w-16 h-16 rounded-full object-cover border-2 border-white/20 shrink-0 bg-slate-800" />
+
+            <div class="flex-1 space-y-2">
+              <!-- Link input -->
+              <input id="inputAvatar" type="url" placeholder="Dán link ảnh (https://...)"
+                class="w-full px-4 py-2.5 rounded-xl bg-slate-900/50 border border-white/10 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 focus:outline-none text-white transition-all shadow-inner text-sm" />
+
+              <!-- File input (ẩn) + nút giả -->
+              <input id="inputAvatarFile" type="file" accept="image/*" class="hidden" />
+              <button type="button" id="chooseAvatarBtn"
+                class="spring-btn w-full py-2 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 text-purple-300 text-sm font-medium flex items-center justify-center gap-2">
+                <i data-lucide="upload" class="w-4 h-4"></i>
+                <span>Hoặc chọn file từ máy</span>
+              </button>
+              <p id="uploadStatus" class="text-xs text-slate-500 hidden"></p>
+            </div>
           </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div class="space-y-1.5">
             <label class="block text-xs font-semibold text-slate-400">GitHub Link</label>
             <input id="inputGithub" type="url"
