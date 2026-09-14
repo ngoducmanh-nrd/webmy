@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard cá nhân</title>
+  <meta name="view-transition" content="same-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { fontFamily: { sans: ['"Inter"', 'sans-serif'] } } }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="search.css">
+</head>
+<body class="font-sans min-h-screen relative overflow-x-hidden text-slate-200 selection:bg-cyan-900 selection:text-cyan-100">
+
+  <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+    <div class="bg-overlay"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-slate-950/40 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="p-2 rounded-xl hover:bg-white/10 text-slate-300 hover:text-white transition-colors" title="Về portfolio">
+          <i data-lucide="arrow-left" class="w-5 h-5"></i>
+        </a>
+        <div>
+          <h1 class="text-lg font-bold text-white flex items-center gap-2">
+            <i data-lucide="layout-dashboard" class="w-5 h-5 text-purple-400"></i>
+            Dashboard
+          </h1>
+          <p class="text-[11px] text-slate-500">Tổng quan hệ thống</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button id="gsTrigger" type="button" class="gs-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:14px;height:14px">
+            <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+          </svg>
+          <span>Tìm kiếm</span>
+          <span class="gs-kbd">Ctrl K</span>
+        </button>
+
+        <fieldset class="switcher switcher--inline" c-previous="1">
+          <legend class="switcher__legend">Chọn giao diện</legend>
+          <label class="switcher__option" title="Sáng">
+            <input class="switcher__input" type="radio" name="theme" value="light" c-option="1" />
+            <svg class="switcher__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 36"><path fill="var(--c)" fill-rule="evenodd" d="M18 12a6 6 0 1 1 0 12 6 6 0 0 1 0-12Zm0 2a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z" clip-rule="evenodd"/><path fill="var(--c)" d="M17 6.038a1 1 0 1 1 2 0v3a1 1 0 0 1-2 0v-3ZM24.244 7.742a1 1 0 1 1 1.618 1.176L24.1 11.345a1 1 0 1 1-1.618-1.176l1.763-2.427ZM29.104 13.379a1 1 0 0 1 .618 1.902l-2.854.927a1 1 0 1 1-.618-1.902l2.854-.927ZM29.722 20.795a1 1 0 0 1-.619 1.902l-2.853-.927a1 1 0 1 1 .618-1.902l2.854.927ZM25.862 27.159a1 1 0 0 1-1.618 1.175l-1.763-2.427a1 1 0 1 1 1.618-1.175l1.763 2.427ZM19 30.038a1 1 0 0 1-2 0v-3a1 1 0 1 1 2 0v3ZM11.755 28.334a1 1 0 0 1-1.618-1.175l1.764-2.427a1 1 0 1 1 1.618 1.175l-1.764 2.427ZM6.896 22.697a1 1 0 1 1-.618-1.902l2.853-.927a1 1 0 1 1 .618 1.902l-2.853-.927ZM6.278 15.28a1 1 0 1 1 .618-1.901l2.853.927a1 1 0 1 1-.618 1.902l-2.853-.927ZM10.137 8.918a1 1 0 0 1 1.618-1.176l1.764 2.427a1 1 0 0 1-1.618 1.176l-1.764-2.427Z"/></svg>
+          </label>
+          <label class="switcher__option" title="Tối">
+            <input class="switcher__input" type="radio" name="theme" value="dark" c-option="2" />
+            <svg class="switcher__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 36"><path fill="var(--c)" d="M12.5 8.473a10.968 10.968 0 0 1 8.785-.97 7.435 7.435 0 0 0-3.737 4.672l-.09.373A7.454 7.454 0 0 0 28.732 20.4a10.97 10.97 0 0 1-5.232 7.125l-.497.27c-5.014 2.566-11.175.916-14.234-3.813l-.295-.483C5.53 18.403 7.13 11.93 12.017 8.77l.483-.297Zm4.234.616a8.946 8.946 0 0 0-2.805.883l-.429.234A9 9 0 0 0 10.206 22.5l.241.395A9 9 0 0 0 22.5 25.794l.416-.255a8.94 8.94 0 0 0 2.167-1.99 9.433 9.433 0 0 1-2.782-.313c-5.043-1.352-8.036-6.535-6.686-11.578l.147-.491c.242-.745.573-1.44.972-2.078Z"/></svg>
+          </label>
+          <label class="switcher__option" title="Mờ">
+            <input class="switcher__input" type="radio" name="theme" value="dim" c-option="3" />
+            <svg class="switcher__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 36"><path fill="var(--c)" d="M5 21a1 1 0 0 1 1-1h24a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1ZM12 25a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1ZM15 29a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2h-4a1 1 0 0 1-1-1ZM18 13a6 6 0 0 1 5.915 7h-2.041A4.005 4.005 0 0 0 18 15a4 4 0 0 0-3.874 5h-2.041A6 6 0 0 1 18 13ZM17 7.038a1 1 0 1 1 2 0v3a1 1 0 0 1-2 0v-3ZM24.244 8.742a1 1 0 1 1 1.618 1.176L24.1 12.345a1 1 0 1 1-1.618-1.176l1.763-2.427ZM29.104 14.379a1 1 0 0 1 .618 1.902l-2.854.927a1 1 0 1 1-.618-1.902l2.854-.927ZM6.278 16.28a1 1 0 1 1 .618-1.901l2.853.927a1 1 0 1 1-.618 1.902l-2.853-.927ZM10.137 9.918a1 1 0 0 1 1.618-1.176l1.764 2.427a1 1 0 0 1-1.618 1.176l-1.764-2.427Z"/></svg>
+          </label>
+        </fieldset>
+
+        <button id="logoutBtn" class="hidden px-4 py-2 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/30 text-sm font-medium transition-colors">
+          Đăng xuất
+        </button>
+        <a id="loginLink" href="login.html" class="hidden px-4 py-2 rounded-xl bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 border border-cyan-500/30 text-sm font-medium transition-colors">
+          Đăng nhập
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Auth gate -->
+  <div id="authGate" class="hidden max-w-md mx-auto mt-32 p-8 glass-panel rounded-3xl text-center space-y-4">
+    <i data-lucide="lock" class="w-12 h-12 mx-auto text-slate-500"></i>
+    <h2 class="text-xl font-bold text-white">Trang này riêng tư</h2>
+    <p class="text-sm text-slate-400">Cần đăng nhập admin để xem dashboard.</p>
+    <a href="login.html" class="inline-block px-6 py-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 border border-cyan-500/30 text-sm font-semibold transition-colors">
+      Đăng nhập
+    </a>
+  </div>
+
+  <!-- App -->
+  <main id="app" class="hidden max-w-7xl mx-auto px-4 py-8 space-y-6">
+
+    <!-- Greeting -->
+    <section class="glass-panel rounded-3xl p-6 sm:p-8 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-tr from-cyan-500/5 via-transparent to-purple-500/5 pointer-events-none"></div>
+      <div class="relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div class="flex items-center gap-4">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center shadow-lg shadow-cyan-900/30 shrink-0">
+            <i id="greetIcon" data-lucide="sun" class="w-8 h-8 text-white"></i>
+          </div>
+          <div>
+            <p id="greetText" class="text-sm text-slate-400">Chào buổi sáng</p>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mt-0.5">Ngô Đức Mạnh</h2>
+            <p id="greetDate" class="text-xs text-slate-500 mt-1"></p>
+          </div>
+        </div>
+        <div id="greetClock" class="text-4xl sm:text-5xl font-bold text-white tabular-nums tracking-tight"></div>
+      </div>
+    </section>
+
+    <!-- Stats overview -->
+    <section id="statsRow" class="grid grid-cols-2 md:grid-cols-4 gap-3"></section>
+
+    <!-- 3-column: Notes | Watchlist | Tasks -->
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+      <!-- Recent Notes -->
+      <div class="glass-panel rounded-3xl p-5 flex flex-col">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-amber-500/15 text-amber-400 flex items-center justify-center">
+              <i data-lucide="sticky-note" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-white text-sm">Ghi chú gần đây</h3>
+              <p class="text-[10px] text-slate-500">3 ghi chú mới nhất</p>
+            </div>
+          </div>
+          <a href="notes.html" class="text-[11px] text-cyan-400 hover:underline">Xem tất cả →</a>
+        </div>
+        <div id="recentNotes" class="space-y-2 flex-1"></div>
+      </div>
+
+      <!-- Watching anime -->
+      <div class="glass-panel rounded-3xl p-5 flex flex-col">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-cyan-500/15 text-cyan-400 flex items-center justify-center">
+              <i data-lucide="tv" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-white text-sm">Đang xem</h3>
+              <p class="text-[10px] text-slate-500">Tiếp tục theo dõi</p>
+            </div>
+          </div>
+          <a href="watch.html" class="text-[11px] text-cyan-400 hover:underline">Xem tất cả →</a>
+        </div>
+        <div id="watchingList" class="space-y-2 flex-1"></div>
+      </div>
+
+      <!-- Active tasks -->
+      <div class="glass-panel rounded-3xl p-5 flex flex-col">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/15 text-emerald-400 flex items-center justify-center">
+              <i data-lucide="list-checks" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-white text-sm">Task đang làm</h3>
+              <p class="text-[10px] text-slate-500">Ưu tiên xử lý</p>
+            </div>
+          </div>
+          <a href="tasks.html" class="text-[11px] text-cyan-400 hover:underline">Xem tất cả →</a>
+        </div>
+        <div id="activeTasks" class="space-y-2 flex-1"></div>
+      </div>
+
+    </section>
+
+    <!-- Quick actions -->
+    <section class="glass-panel rounded-3xl p-5">
+      <h3 class="font-semibold text-white text-sm mb-3 flex items-center gap-2">
+        <i data-lucide="zap" class="w-4 h-4 text-cyan-400"></i>
+        Truy cập nhanh
+      </h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        <a href="notes.html" class="spring-btn px-4 py-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-sm font-medium flex items-center gap-2">
+          <i data-lucide="sticky-note" class="w-4 h-4"></i>
+          <span>Ghi chú</span>
+        </a>
+        <a href="watch.html" class="spring-btn px-4 py-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-sm font-medium flex items-center gap-2">
+          <i data-lucide="tv" class="w-4 h-4"></i>
+          <span>Watchlist</span>
+        </a>
+        <a href="tasks.html" class="spring-btn px-4 py-3 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-sm font-medium flex items-center gap-2">
+          <i data-lucide="list-checks" class="w-4 h-4"></i>
+          <span>Tasks</span>
+        </a>
+        <a href="backup.html" class="spring-btn px-4 py-3 rounded-xl bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/30 text-orange-300 text-sm font-medium flex items-center gap-2">
+          <i data-lucide="database-backup" class="w-4 h-4"></i>
+          <span>Backup</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast -->
+  <div id="toast"
+    class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[110] flex items-center gap-3 px-5 py-3 rounded-2xl bg-slate-800/90 border border-white/10 text-white text-sm font-medium translate-y-20 opacity-0 pointer-events-none transition-all duration-300 shadow-2xl backdrop-blur-xl">
+    <div class="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center">
+      <i data-lucide="check" class="w-3.5 h-3.5"></i>
+    </div>
+    <span id="toastMsg">OK</span>
+  </div>
+
+  <script>if (window.lucide) lucide.createIcons();</script>
+  <script type="module" src="dashboard.js"></script>
+  <script type="module" src="search.js"></script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Backup dữ liệu</title>
+  <meta name="view-transition" content="same-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { fontFamily: { sans: ['"Inter"', 'sans-serif'] } } }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="search.css">
+</head>
+<body class="font-sans min-h-screen relative overflow-x-hidden text-slate-200 selection:bg-cyan-900 selection:text-cyan-100">
+
+  <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+    <div class="bg-overlay"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-slate-950/40 border-b border-white/10">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="p-2 rounded-xl hover:bg-white/10 text-slate-300 hover:text-white transition-colors" title="Về portfolio">
+          <i data-lucide="arrow-left" class="w-5 h-5"></i>
+        </a>
+        <div>
+          <h1 class="text-lg font-bold text-white flex items-center gap-2">
+            <i data-lucide="database-backup" class="w-5 h-5 text-orange-400"></i>
+            Backup dữ liệu
+          </h1>
+          <p class="text-[11px] text-slate-500">Export / Import JSON</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button id="gsTrigger" type="button" class="gs-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:14px;height:14px">
+            <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+          </svg>
+          <span>Tìm kiếm</span>
+          <span class="gs-kbd">Ctrl K</span>
+        </button>
+
+        <fieldset class="switcher switcher--inline" c-previous="1">
+          <legend class="switcher__legend">Chọn giao diện</legend>
+          <label class="switcher__option" title="Sáng">
+            <input class="switcher__input" type="radio" name="theme" value="light" c-option="1" />
+            <svg class="switcher__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 36"><path fill="var(--c)" fill-rule="evenodd" d="M18 12a6 6 0 1 1 0 12 6 6 0 0 1 0-12Zm0 2a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z" clip-rule="evenodd"/><path fill="var(--c)" d="M17 6.038a1 1 0 1 1 2 0v3a1 1 0 0 1-2 0v-3ZM24.244 7.742a1 1 0 1 1 1.618 1.176L24.1 11.345a1 1 0 1 1-1.618-1.176l1.763-2.427ZM29.104 13.379a1 1 0 0 1 .618 1.902l-2.854.927a1 1 0 1 1-.618-1.902l2.854-.927ZM29.722 20.795a1 1 0 0 1-.619 1.902l-2.853-.927a1 1 0 1 1 .618-1.902l2.854.927ZM25.862 27.159a1 1 0 0 1-1.618 1.175l-1.763-2.427a1 1 0 1 1 1.618-1.175l1.763 2.427ZM19 30.038a1 1 0 0 1-2 0v-3a1 1 0 1 1 2 0v3ZM11.755 28.334a1 1 0 0 1-1.618-1.175l1.764-2.427a1 1 0 1 1 1.618 1.175l-1.764 2.427ZM6.896 22.697a1 1 0 1 1-.618-1.902l2.853-.927a1 1 0 1 1 .618 1.902l-2.853-.927ZM6.278 15.28a1 1 0 1 1 .618-1.901l2.853.927a1 1 0 1 1-.618 1.902l-2.853-.927ZM10.137 8.918a1 1 0 0 1 1.618-1.176l1.764 2.427a1 1 0 0 1-1.618 1.176l-1.764-2.427Z"/></svg>
+          </label>
+          <label class="switcher__option" title="Tối">
+            <input class="switcher__input" type="radio" name="theme" value="dark" c-option="2" />
+            <svg class="switcher__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 36"><path fill="var(--c)" d="M12.5 8.473a10.968 10.968 0 0 1 8.785-.97 7.435 7.435 0 0 0-3.737 4.672l-.09.373A7.454 7.454 0 0 0 28.732 20.4a10.97 10.97 0 0 1-5.232 7.125l-.497.27c-5.014 2.566-11.175.916-14.234-3.813l-.295-.483C5.53 18.403 7.13 11.93 12.017 8.77l.483-.297Zm4.234.616a8.946 8.946 0 0 0-2.805.883l-.429.234A9 9 0 0 0 10.206 22.5l.241.395A9 9 0 0 0 22.5 25.794l.416-.255a8.94 8.94 0 0 0 2.167-1.99 9.433 9.433 0 0 1-2.782-.313c-5.043-1.352-8.036-6.535-6.686-11.578l.147-.491c.242-.745.573-1.44.972-2.078Z"/></svg>
+          </label>
+          <label class="switcher__option" title="Mờ">
+            <input class="switcher__input" type="radio" name="theme" value="dim" c-option="3" />
+            <svg class="switcher__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 36"><path fill="var(--c)" d="M5 21a1 1 0 0 1 1-1h24a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1ZM12 25a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1ZM15 29a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2h-4a1 1 0 0 1-1-1ZM18 13a6 6 0 0 1 5.915 7h-2.041A4.005 4.005 0 0 0 18 15a4 4 0 0 0-3.874 5h-2.041A6 6 0 0 1 18 13ZM17 7.038a1 1 0 1 1 2 0v3a1 1 0 0 1-2 0v-3ZM24.244 8.742a1 1 0 1 1 1.618 1.176L24.1 12.345a1 1 0 1 1-1.618-1.176l1.763-2.427ZM29.104 14.379a1 1 0 0 1 .618 1.902l-2.854.927a1 1 0 1 1-.618-1.902l2.854-.927ZM6.278 16.28a1 1 0 1 1 .618-1.901l2.853.927a1 1 0 1 1-.618 1.902l-2.853-.927ZM10.137 9.918a1 1 0 0 1 1.618-1.176l1.764 2.427a1 1 0 0 1-1.618 1.176l-1.764-2.427Z"/></svg>
+          </label>
+        </fieldset>
+
+        <button id="logoutBtn" class="hidden px-4 py-2 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/30 text-sm font-medium transition-colors">
+          Đăng xuất
+        </button>
+        <a id="loginLink" href="login.html" class="hidden px-4 py-2 rounded-xl bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 border border-cyan-500/30 text-sm font-medium transition-colors">
+          Đăng nhập
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Auth gate -->
+  <div id="authGate" class="hidden max-w-md mx-auto mt-32 p-8 glass-panel rounded-3xl text-center space-y-4">
+    <i data-lucide="lock" class="w-12 h-12 mx-auto text-slate-500"></i>
+    <h2 class="text-xl font-bold text-white">Trang này riêng tư</h2>
+    <p class="text-sm text-slate-400">Cần đăng nhập admin để backup.</p>
+    <a href="login.html" class="inline-block px-6 py-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 border border-cyan-500/30 text-sm font-semibold transition-colors">
+      Đăng nhập
+    </a>
+  </div>
+
+  <!-- App -->
+  <main id="app" class="hidden max-w-5xl mx-auto px-4 py-8 space-y-6">
+
+    <!-- Info cards -->
+    <div id="statsRow" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
+
+    <!-- Export -->
+    <div class="glass-panel rounded-3xl p-6 sm:p-8 space-y-4">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center border border-emerald-500/30">
+          <i data-lucide="download" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h2 class="text-lg font-bold text-white">Export dữ liệu</h2>
+          <p class="text-xs text-slate-400">Tải file JSON chứa toàn bộ notes, watchlist, tasks</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-2 pt-1">
+        <button id="exportAllBtn"
+          class="spring-btn px-5 py-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 font-semibold text-sm flex items-center gap-2">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span>Tải xuống tất cả</span>
+        </button>
+        <button id="exportNotesBtn" class="spring-btn px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 text-sm">Chỉ Notes</button>
+        <button id="exportWatchBtn" class="spring-btn px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 text-sm">Chỉ Watchlist</button>
+        <button id="exportTasksBtn" class="spring-btn px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 text-sm">Chỉ Tasks</button>
+      </div>
+    </div>
+
+    <!-- Import -->
+    <div class="glass-panel rounded-3xl p-6 sm:p-8 space-y-4">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl bg-amber-500/15 text-amber-400 flex items-center justify-center border border-amber-500/30">
+          <i data-lucide="upload" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h2 class="text-lg font-bold text-white">Import dữ liệu</h2>
+          <p class="text-xs text-slate-400">Phục hồi từ file JSON đã export trước đó</p>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-red-500/30 bg-red-500/5 p-4 text-xs text-red-300 leading-relaxed">
+        ⚠️ <b>Cảnh báo:</b> Import sẽ <b>XÓA TOÀN BỘ</b> dữ liệu hiện tại rồi ghi đè bằng dữ liệu trong file. Không thể hoàn tác. Khuyên export backup trước.
+      </div>
+
+      <div id="dropZone"
+        class="rounded-2xl border-2 border-dashed border-white/20 hover:border-cyan-500/50 transition-colors p-8 text-center cursor-pointer">
+        <input id="fileInput" type="file" accept=".json,application/json" class="hidden" />
+        <i data-lucide="file-json" class="w-10 h-10 mx-auto mb-3 text-slate-500"></i>
+        <p class="text-sm text-slate-300 font-medium">Kéo thả file JSON vào đây</p>
+        <p class="text-xs text-slate-500 mt-1">hoặc click để chọn file</p>
+      </div>
+
+      <div id="importPreview" class="hidden rounded-2xl border border-white/10 bg-white/5 p-4 space-y-3">
+        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Xem trước</p>
+        <div id="importPreviewBody" class="text-sm text-slate-300 space-y-1"></div>
+        <div class="flex gap-2 pt-2 border-t border-white/10">
+          <button id="confirmImportBtn"
+            class="spring-btn px-5 py-2.5 rounded-xl bg-red-500/15 hover:bg-red-500/25 border border-red-500/40 text-red-300 font-semibold text-sm flex items-center gap-2">
+            <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+            <span>Xác nhận Import (ghi đè)</span>
+          </button>
+          <button id="cancelImportBtn"
+            class="px-4 py-2.5 rounded-xl border border-white/20 text-slate-300 hover:bg-white/5 text-sm">
+            Hủy
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Toast -->
+  <div id="toast"
+    class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[110] flex items-center gap-3 px-5 py-3 rounded-2xl bg-slate-800/90 border border-white/10 text-white text-sm font-medium translate-y-20 opacity-0 pointer-events-none transition-all duration-300 shadow-2xl backdrop-blur-xl">
+    <div class="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center">
+      <i data-lucide="check" class="w-3.5 h-3.5"></i>
+    </div>
+    <span id="toastMsg">OK</span>
+  </div>
+
+  <script>if (window.lucide) lucide.createIcons();</script>
+  <script type="module" src="backup.js"></script>
+  <script type="module" src="search.js"></script>
+</body>
+</html>

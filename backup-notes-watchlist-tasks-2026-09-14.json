@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "exported_at": "2026-09-14T15:42:13.397Z",
+  "exported_by": "shelving-claim56@bravealias.com",
+  "app": "ngoducmanh-portfolio",
+  "data": {
+    "notes": [
+      {
+        "id": 7,
+        "title": null,
+        "content": "adasdad",
+        "color": "default",
+        "pinned": false,
+        "tags": null,
+        "created_at": "2026-09-14T13:59:54.871342+00:00",
+        "updated_at": "2026-09-14T13:59:54.871342+00:00"
+      }
+    ],
+    "watchlist": [
+      {
+        "id": 1,
+        "title": "Tiên Nghịch",
+        "type": "donghua",
+        "status": "watching",
+        "current_ep": 158,
+        "total_ep": 180,
+        "rating": 10,
+        "notes": "ok",
+        "cover_url": "https://hhtq.sh/wp-content/uploads/2025/04/Tien-Nghich-300x450.webp",
+        "created_at": "2026-09-14T13:39:05.82512+00:00",
+        "updated_at": "2026-09-14T13:44:27.472+00:00"
+      }
+    ],
+    "tasks": []
+  }
+}

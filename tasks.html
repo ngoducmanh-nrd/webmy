@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task list</title>
+  <meta name="view-transition" content="same-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { fontFamily: { sans: ['"Inter"', 'sans-serif'] } } }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="search.css">
+</head>
+<body class="font-sans min-h-screen relative overflow-x-hidden text-slate-200 selection:bg-cyan-900 selection:text-cyan-100">
+
+  <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+    <div class="bg-overlay"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-slate-950/40 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="p-2 rounded-xl hover:bg-white/10 text-slate-300 hover:text-white transition-colors" title="Về portfolio">
+          <i data-lucide="arrow-left" class="w-5 h-5"></i>
+        </a>
+        <div>
+          <h1 class="text-lg font-bold text-white flex items-center gap-2">
+            <i data-lucide="list-checks" class="w-5 h-5 text-emerald-400"></i>
+            Task list
+          </h1>
+          <p class="text-[11px] text-slate-500">Kéo thả để đổi trạng thái</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button id="gsTrigger" type="button" class="gs-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:14px;height:14px">
+            <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+          </svg>
+          <span>Tìm kiếm</span>
+          <span class="gs-kbd">Ctrl K</span>
+        </button>
+
+        <fieldset class="switcher switcher--inline" c-previous="1">
+          <legend class="switcher__legend">Chọn giao diện</legend>
+          <label class="switcher__option" title="Sáng">
+            <input class="switcher__input" type="radio" name="theme" value="light" c-option="1" />
+            <svg class="switcher__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 36"><path fill="var(--c)" fill-rule="evenodd" d="M18 12a6 6 0 1 1 0 12 6 6 0 0 1 0-12Zm0 2a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z" clip-rule="evenodd"/><path fill="var(--c)" d="M17 6.038a1 1 0 1 1 2 0v3a1 1 0 0 1-2 0v-3ZM24.244 7.742a1 1 0 1 1 1.618 1.176L24.1 11.345a1 1 0 1 1-1.618-1.176l1.763-2.427ZM29.104 13.379a1 1 0 0 1 .618 1.902l-2.854.927a1 1 0 1 1-.618-1.902l2.854-.927ZM29.722 20.795a1 1 0 0 1-.619 1.902l-2.853-.927a1 1 0 1 1 .618-1.902l2.854.927ZM25.862 27.159a1 1 0 0 1-1.618 1.175l-1.763-2.427a1 1 0 1 1 1.618-1.175l1.763 2.427ZM19 30.038a1 1 0 0 1-2 0v-3a1 1 0 1 1 2 0v3ZM11.755 28.334a1 1 0 0 1-1.618-1.175l1.764-2.427a1 1 0 1 1 1.618 1.175l-1.764 2.427ZM6.896 22.697a1 1 0 1 1-.618-1.902l2.853-.927a1 1 0 1 1 .618 1.902l-2.853-.927ZM6.278 15.28a1 1 0 1 1 .618-1.901l2.853.927a1 1 0 1 1-.618 1.902l-2.853-.927ZM10.137 8.918a1 1 0 0 1 1.618-1.176l1.764 2.427a1 1 0 0 1-1.618 1.176l-1.764-2.427Z"/></svg>
+          </label>
+          <label class="switcher__option" title="Tối">
+            <input class="switcher__input" type="radio" name="theme" value="dark" c-option="2" />
+            <svg class="switcher__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 36"><path fill="var(--c)" d="M12.5 8.473a10.968 10.968 0 0 1 8.785-.97 7.435 7.435 0 0 0-3.737 4.672l-.09.373A7.454 7.454 0 0 0 28.732 20.4a10.97 10.97 0 0 1-5.232 7.125l-.497.27c-5.014 2.566-11.175.916-14.234-3.813l-.295-.483C5.53 18.403 7.13 11.93 12.017 8.77l.483-.297Zm4.234.616a8.946 8.946 0 0 0-2.805.883l-.429.234A9 9 0 0 0 10.206 22.5l.241.395A9 9 0 0 0 22.5 25.794l.416-.255a8.94 8.94 0 0 0 2.167-1.99 9.433 9.433 0 0 1-2.782-.313c-5.043-1.352-8.036-6.535-6.686-11.578l.147-.491c.242-.745.573-1.44.972-2.078Z"/></svg>
+          </label>
+          <label class="switcher__option" title="Mờ">
+            <input class="switcher__input" type="radio" name="theme" value="dim" c-option="3" />
+            <svg class="switcher__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 36"><path fill="var(--c)" d="M5 21a1 1 0 0 1 1-1h24a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1ZM12 25a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1ZM15 29a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2h-4a1 1 0 0 1-1-1ZM18 13a6 6 0 0 1 5.915 7h-2.041A4.005 4.005 0 0 0 18 15a4 4 0 0 0-3.874 5h-2.041A6 6 0 0 1 18 13ZM17 7.038a1 1 0 1 1 2 0v3a1 1 0 0 1-2 0v-3ZM24.244 8.742a1 1 0 1 1 1.618 1.176L24.1 12.345a1 1 0 1 1-1.618-1.176l1.763-2.427ZM29.104 14.379a1 1 0 0 1 .618 1.902l-2.854.927a1 1 0 1 1-.618-1.902l2.854-.927ZM6.278 16.28a1 1 0 1 1 .618-1.901l2.853.927a1 1 0 1 1-.618 1.902l-2.853-.927ZM10.137 9.918a1 1 0 0 1 1.618-1.176l1.764 2.427a1 1 0 0 1-1.618 1.176l-1.764-2.427Z"/></svg>
+          </label>
+        </fieldset>
+
+        <button id="logoutBtn" class="hidden px-4 py-2 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/30 text-sm font-medium transition-colors">
+          Đăng xuất
+        </button>
+        <a id="loginLink" href="login.html" class="hidden px-4 py-2 rounded-xl bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 border border-cyan-500/30 text-sm font-medium transition-colors">
+          Đăng nhập
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Auth gate -->
+  <div id="authGate" class="hidden max-w-md mx-auto mt-32 p-8 glass-panel rounded-3xl text-center space-y-4">
+    <i data-lucide="lock" class="w-12 h-12 mx-auto text-slate-500"></i>
+    <h2 class="text-xl font-bold text-white">Trang này riêng tư</h2>
+    <p class="text-sm text-slate-400">Cần đăng nhập admin để xem task list.</p>
+    <a href="login.html" class="inline-block px-6 py-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 border border-cyan-500/30 text-sm font-semibold transition-colors">
+      Đăng nhập
+    </a>
+  </div>
+
+  <!-- App -->
+  <main id="app" class="hidden max-w-7xl mx-auto px-4 py-6">
+
+    <!-- Stats row -->
+    <div id="statsRow" class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5"></div>
+
+    <!-- Board: 3 cột Kanban -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+      <!-- TODO column -->
+      <section class="glass-panel rounded-2xl p-4 flex flex-col">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-slate-400"></span>
+            <h2 class="font-semibold text-white text-sm">Cần làm</h2>
+            <span data-count="todo" class="text-xs text-slate-500">(0)</span>
+          </div>
+          <button data-add-status="todo"
+            class="p-1.5 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white transition-colors">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+          </button>
+        </div>
+        <div id="list-todo" data-status="todo" class="task-list flex flex-col gap-2 min-h-[100px]"></div>
+      </section>
+
+      <!-- DOING column -->
+      <section class="glass-panel rounded-2xl p-4 flex flex-col">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            <h2 class="font-semibold text-white text-sm">Đang làm</h2>
+            <span data-count="doing" class="text-xs text-slate-500">(0)</span>
+          </div>
+          <button data-add-status="doing"
+            class="p-1.5 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white transition-colors">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+          </button>
+        </div>
+        <div id="list-doing" data-status="doing" class="task-list flex flex-col gap-2 min-h-[100px]"></div>
+      </section>
+
+      <!-- DONE column -->
+      <section class="glass-panel rounded-2xl p-4 flex flex-col">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <h2 class="font-semibold text-white text-sm">Đã xong</h2>
+            <span data-count="done" class="text-xs text-slate-500">(0)</span>
+          </div>
+          <button data-add-status="done"
+            class="p-1.5 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white transition-colors">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+          </button>
+        </div>
+        <div id="list-done" data-status="done" class="task-list flex flex-col gap-2 min-h-[100px]"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Modal -->
+  <div id="modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-slate-950/60 backdrop-blur-md">
+    <div id="modalContent" class="glass-panel rounded-3xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 space-y-5 border border-white/20 transition-transform duration-300 scale-95">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4">
+        <h3 id="modalTitle" class="text-lg font-bold text-white">Thêm task</h3>
+        <button id="closeModalBtn" class="p-2 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="taskForm" class="space-y-4 text-sm">
+        <input type="hidden" id="editId" />
+
+        <input id="fTitle" type="text" required placeholder="Task cần làm..."
+          class="w-full px-4 py-2.5 rounded-xl bg-slate-900/50 border border-white/10 text-white focus:border-cyan-500 focus:outline-none" />
+
+        <textarea id="fDesc" rows="3" placeholder="Mô tả chi tiết (tùy chọn)"
+          class="w-full px-4 py-2.5 rounded-xl bg-slate-900/50 border border-white/10 text-white focus:border-cyan-500 focus:outline-none resize-none"></textarea>
+
+        <div class="grid grid-cols-3 gap-3">
+          <div class="space-y-1.5">
+            <label class="text-xs font-semibold text-slate-400">Trạng thái</label>
+            <select id="fStatus" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/50 border border-white/10 text-white focus:border-cyan-500 focus:outline-none text-sm">
+              <option value="todo">Cần làm</option>
+              <option value="doing">Đang làm</option>
+              <option value="done">Đã xong</option>
+            </select>
+          </div>
+          <div class="space-y-1.5">
+            <label class="text-xs font-semibold text-slate-400">Ưu tiên</label>
+            <select id="fPriority" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/50 border border-white/10 text-white focus:border-cyan-500 focus:outline-none text-sm">
+              <option value="low">Thấp</option>
+              <option value="medium">Vừa</option>
+              <option value="high">Cao</option>
+            </select>
+          </div>
+          <div class="space-y-1.5">
+            <label class="text-xs font-semibold text-slate-400">Hạn</label>
+            <input id="fDue" type="date"
+              class="w-full px-4 py-2.5 rounded-xl bg-slate-900/50 border border-white/10 text-white focus:border-cyan-500 focus:outline-none text-sm" />
+          </div>
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="text-xs font-semibold text-slate-400">Tags (phẩy phân cách)</label>
+          <input id="fTags" type="text" placeholder="work, study, code"
+            class="w-full px-4 py-2.5 rounded-xl bg-slate-900/50 border border-white/10 text-white focus:border-cyan-500 focus:outline-none text-sm" />
+        </div>
+
+        <div class="flex items-center justify-between pt-4 border-t border-white/10">
+          <button type="button" id="deleteBtn" class="hidden text-xs text-red-400 hover:underline">Xóa task</button>
+          <div class="flex gap-2 ml-auto">
+            <button type="button" id="cancelBtn"
+              class="px-4 py-2 rounded-xl border border-white/20 text-slate-300 hover:bg-white/5 text-sm">Hủy</button>
+            <button type="submit"
+              class="px-5 py-2 rounded-xl bg-gradient-to-r from-cyan-600 to-purple-600 text-white font-semibold text-sm shadow-lg shadow-cyan-900/40">Lưu</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast"
+    class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[110] flex items-center gap-3 px-5 py-3 rounded-2xl bg-slate-800/90 border border-white/10 text-white text-sm font-medium translate-y-20 opacity-0 pointer-events-none transition-all duration-300 shadow-2xl backdrop-blur-xl">
+    <div class="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center">
+      <i data-lucide="check" class="w-3.5 h-3.5"></i>
+    </div>
+    <span id="toastMsg">OK</span>
+  </div>
+
+  <script>if (window.lucide) lucide.createIcons();</script>
+  <script type="module" src="tasks.js"></script>
+  <script type="module" src="search.js"></script>
+</body>
+</html>

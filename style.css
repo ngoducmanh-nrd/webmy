@@ -74,7 +74,11 @@ html[data-theme="dim"] {
 /* ============================================================
    2. BASE
    ============================================================ */
-*, *::before, *::after { box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
@@ -161,29 +165,55 @@ html[data-theme="light"] .orb {
 html[data-theme="light"] .orb-1 {
   background: radial-gradient(circle, rgba(180, 130, 230, 0.4) 0%, transparent 70%);
 }
+
 html[data-theme="light"] .orb-2 {
   background: radial-gradient(circle, rgba(130, 180, 240, 0.3) 0%, transparent 70%);
 }
+
 html[data-theme="light"] .orb-3 {
   background: radial-gradient(circle, rgba(240, 130, 180, 0.3) 0%, transparent 70%);
 }
 
 @keyframes orbFloat1 {
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(60px, 40px) scale(1.15); }
-  100% { transform: translate(-30px, 80px) scale(0.95); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(60px, 40px) scale(1.15);
+  }
+
+  100% {
+    transform: translate(-30px, 80px) scale(0.95);
+  }
 }
 
 @keyframes orbFloat2 {
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(-50px, -60px) scale(1.2); }
-  100% { transform: translate(40px, -30px) scale(0.9); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(-50px, -60px) scale(1.2);
+  }
+
+  100% {
+    transform: translate(40px, -30px) scale(0.9);
+  }
 }
 
 @keyframes orbFloat3 {
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(50px, -40px) scale(1.1); }
-  100% { transform: translate(-40px, 30px) scale(1.05); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(50px, -40px) scale(1.1);
+  }
+
+  100% {
+    transform: translate(-40px, 30px) scale(1.05);
+  }
 }
 
 /* ============================================================
@@ -216,8 +246,10 @@ html[data-theme="light"] .orb-3 {
 
 :root {
   --menu-btn-size: 48px;
-  --menu-top: 1.5rem;   /* 24px - exactly matches switcher top */
-  --menu-left: 1.5rem;  /* 24px - exactly matches switcher right */
+  --menu-top: 1.5rem;
+  /* 24px - exactly matches switcher top */
+  --menu-left: 1.5rem;
+  /* 24px - exactly matches switcher right */
   --menu-radius: 28px;
   --menu-width: 265px;
 }
@@ -257,9 +289,9 @@ html[data-theme="light"] .orb-3 {
   cursor: pointer;
   color: var(--c);
   transition: background-color 400ms cubic-bezier(1, 0, 0.4, 1),
-              box-shadow 400ms cubic-bezier(1, 0, 0.4, 1),
-              color 160ms ease,
-              transform 160ms ease;
+    box-shadow 400ms cubic-bezier(1, 0, 0.4, 1),
+    color 160ms ease,
+    transform 160ms ease;
 }
 
 /* Hover physics: identical to .switcher__option:hover */
@@ -305,8 +337,8 @@ html[data-theme="light"] .orb-3 {
   height: 22px;
   color: inherit;
   transition: transform 200ms cubic-bezier(0.5, 0, 0, 1),
-              opacity 200ms ease,
-              color 160ms ease;
+    opacity 200ms ease,
+    color 160ms ease;
 }
 
 .sidebar-toggle-btn .sidebar-icon-close {
@@ -373,8 +405,8 @@ html[data-theme="light"] .orb-3 {
   visibility: hidden;
   pointer-events: none;
   transition: clip-path 450ms cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 200ms ease,
-              visibility 0s linear 450ms;
+    opacity 200ms ease,
+    visibility 0s linear 450ms;
 }
 
 .sidebar.open {
@@ -383,8 +415,8 @@ html[data-theme="light"] .orb-3 {
   visibility: visible;
   pointer-events: auto;
   transition: clip-path 450ms cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 150ms ease,
-              visibility 0s linear 0s;
+    opacity 150ms ease,
+    visibility 0s linear 0s;
 }
 
 /* Sidebar inner container */
@@ -483,9 +515,9 @@ html[data-theme="light"] .orb-3 {
   border: none;
   transform-origin: center;
   transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
-              background-color 200ms ease,
-              box-shadow 200ms ease,
-              color 160ms ease;
+    background-color 200ms ease,
+    box-shadow 200ms ease,
+    color 160ms ease;
   position: relative;
   cursor: pointer;
   background: none;
@@ -531,13 +563,34 @@ html[data-theme="light"] .orb-3 {
 }
 
 /* Staggered entry animation for sidebar children */
-.sidebar.open .sidebar-profile { animation: sidebarItemIn 350ms ease forwards; animation-delay: 60ms; opacity: 0; }
-.sidebar.open .sidebar-nav { animation: sidebarItemIn 350ms ease forwards; animation-delay: 110ms; opacity: 0; }
-.sidebar.open .sidebar-actions { animation: sidebarItemIn 350ms ease forwards; animation-delay: 160ms; opacity: 0; }
+.sidebar.open .sidebar-profile {
+  animation: sidebarItemIn 350ms ease forwards;
+  animation-delay: 60ms;
+  opacity: 0;
+}
+
+.sidebar.open .sidebar-nav {
+  animation: sidebarItemIn 350ms ease forwards;
+  animation-delay: 110ms;
+  opacity: 0;
+}
+
+.sidebar.open .sidebar-actions {
+  animation: sidebarItemIn 350ms ease forwards;
+  animation-delay: 160ms;
+  opacity: 0;
+}
 
 @keyframes sidebarItemIn {
-  0%   { opacity: 0; transform: translateY(-8px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Light theme sidebar overrides */
@@ -555,9 +608,9 @@ html[data-theme="light"] .sidebar-profile p:last-child {
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--glass-border);
   transition: transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 500ms cubic-bezier(0.34, 1.56, 0.64, 1),
-              border-color 500ms ease,
-              background 400ms ease;
+    box-shadow 500ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 500ms ease,
+    background 400ms ease;
   position: relative;
   overflow: hidden;
   opacity: 0.95;
@@ -594,8 +647,8 @@ html[data-theme="light"] .glass-card:hover {
    ============================================================ */
 .spring-btn {
   transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 400ms cubic-bezier(0.34, 1.56, 0.64, 1),
-              background-color 400ms ease;
+    box-shadow 400ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 400ms ease;
 }
 
 .spring-btn:hover {
@@ -608,8 +661,15 @@ html[data-theme="light"] .glass-card:hover {
 }
 
 @keyframes springSlideUp {
-  0%   { opacity: 0; transform: translateY(50px) scale(0.9); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .animate-spring {
@@ -617,24 +677,59 @@ html[data-theme="light"] .glass-card:hover {
   opacity: 0;
 }
 
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
 
 /* ============================================================
    6. SCROLLBAR & FORM
    ============================================================ */
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: rgba(5, 5, 20, 0.4); }
-::-webkit-scrollbar-thumb { background: rgba(150, 130, 180, 0.4); border-radius: 9999px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(180, 160, 210, 0.5); }
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
 
-html[data-theme="light"] ::-webkit-scrollbar-track { background: rgba(220, 210, 240, 0.4); }
-html[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(160, 140, 200, 0.4); }
-html[data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: rgba(140, 120, 180, 0.5); }
+::-webkit-scrollbar-track {
+  background: rgba(5, 5, 20, 0.4);
+}
 
-::placeholder { color: #64748b; opacity: 1; }
+::-webkit-scrollbar-thumb {
+  background: rgba(150, 130, 180, 0.4);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(180, 160, 210, 0.5);
+}
+
+html[data-theme="light"] ::-webkit-scrollbar-track {
+  background: rgba(220, 210, 240, 0.4);
+}
+
+html[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: rgba(160, 140, 200, 0.4);
+}
+
+html[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(140, 120, 180, 0.5);
+}
+
+::placeholder {
+  color: #64748b;
+  opacity: 1;
+}
 
 /* ============================================================
    7. EXPLORE BUTTON
@@ -645,6 +740,7 @@ html[data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: rgba(140,
   border: 1px solid rgba(180, 150, 230, 0.3);
   box-shadow: 0 8px 24px -8px rgba(180, 140, 255, 0.3);
 }
+
 .explore-btn:hover {
   background: linear-gradient(135deg, #f8f4ff 0%, #ede0ff 100%);
   box-shadow: 0 12px 30px -8px rgba(180, 140, 255, 0.45);
@@ -656,6 +752,7 @@ html[data-theme="light"] .explore-btn {
   border: 1px solid rgba(100, 60, 160, 0.5);
   box-shadow: 0 8px 24px -8px rgba(80, 40, 140, 0.3);
 }
+
 html[data-theme="light"] .explore-btn:hover {
   background: linear-gradient(135deg, #5a3d9a 0%, #7b4fb0 100%);
   box-shadow: 0 12px 30px -8px rgba(80, 40, 140, 0.45);
@@ -691,13 +788,16 @@ html[data-theme="light"] .explore-btn:hover {
     0px 1px 5px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
     0px 6px 16px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
   transition: background-color 400ms cubic-bezier(1, 0, 0.4, 1),
-              box-shadow 400ms cubic-bezier(1, 0, 0.4, 1);
+    box-shadow 400ms cubic-bezier(1, 0, 0.4, 1);
 }
 
 .switcher__legend {
   position: absolute;
-  width: 1px; height: 1px;
-  margin: -1px; padding: 0; border: 0;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
   white-space: nowrap;
   clip-path: inset(100%);
   clip: rect(0 0 0 0);
@@ -706,7 +806,8 @@ html[data-theme="light"] .explore-btn:hover {
 
 .switcher__input {
   position: absolute;
-  width: 1px; height: 1px;
+  width: 1px;
+  height: 1px;
   clip: rect(0 0 0 0);
   clip-path: inset(100%);
   overflow: hidden;
@@ -730,6 +831,7 @@ html[data-theme="light"] .explore-btn:hover {
 .switcher__option:hover {
   --c: var(--c-action);
 }
+
 .switcher__option:hover .switcher__icon {
   transform: scale(1.15);
 }
@@ -738,6 +840,7 @@ html[data-theme="light"] .explore-btn:hover {
   --c: var(--c-content);
   cursor: default;
 }
+
 .switcher__option:has(input:checked) .switcher__icon {
   transform: scale(1);
 }
@@ -771,13 +874,23 @@ html[data-theme="light"] .explore-btn:hover {
   transition: transform 400ms cubic-bezier(1, 0, 0.4, 1);
 }
 
-.switcher:has(input[c-option="1"]:checked)::after { transform: translateX(0); }
-.switcher:has(input[c-option="2"]:checked)::after { transform: translateX(52px); }
-.switcher:has(input[c-option="3"]:checked)::after { transform: translateX(104px); }
+.switcher:has(input[c-option="1"]:checked)::after {
+  transform: translateX(0);
+}
+
+.switcher:has(input[c-option="2"]:checked)::after {
+  transform: translateX(52px);
+}
+
+.switcher:has(input[c-option="3"]:checked)::after {
+  transform: translateX(104px);
+}
 
 /* Hide switcher on mobile (nav button occupies that corner) */
 @media (max-width: 767px) {
-  .switcher { display: none; }
+  .switcher {
+    display: none;
+  }
 }
 
 /* ============================================================
@@ -877,4 +990,140 @@ html[data-theme="light"] #toast {
   background: rgba(255, 255, 255, 0.85) !important;
   border-color: rgba(150, 120, 200, 0.2) !important;
   color: #1a0e3a !important;
+}
+
+/* ============================================================
+   13. PAGE TRANSITIONS — View Transitions API (macOS Premium)
+   ============================================================ */
+
+/* Enable cross-document transitions cho Chrome/Edge 126+ */
+@view-transition {
+  navigation: auto;
+}
+
+/* Root transition group: bật blending + kéo dài thời lượng nhóm
+   để 2 pseudo-element (old/new) có thể chồng lớp mượt hơn */
+::view-transition-group(root) {
+  animation-duration: 900ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Trang CŨ: thu nhỏ về góc dưới phải, mờ dần, kèm blur + tối màu
+   tạo cảm giác "chìm vào nền" thay vì biến mất đột ngột */
+::view-transition-old(root) {
+  animation: vt-old-out 900ms cubic-bezier(0.5, 0, 0.3, 1) both;
+  transform-origin: bottom right;
+}
+
+/* Trang MỚI: từ góc dưới phải phóng lên với hiệu ứng "genie" macOS —
+   scale + xoay nhẹ theo trục Y + blur giảm dần + glow neon bừng sáng */
+::view-transition-new(root) {
+  animation:
+    vt-new-in 900ms cubic-bezier(0.34, 1.56, 0.44, 1) both,
+    vt-new-glow 900ms cubic-bezier(0.34, 1.56, 0.44, 1) both;
+  transform-origin: bottom right;
+}
+
+@keyframes vt-old-out {
+  0% {
+    transform: scale(1) translateY(0) rotate(0deg);
+    filter: blur(0px) brightness(1);
+    opacity: 1;
+  }
+
+  60% {
+    filter: blur(6px) brightness(0.7);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(0.88) translateY(14px) rotate(-1.5deg);
+    filter: blur(14px) brightness(0.4);
+    opacity: 0;
+  }
+}
+
+@keyframes vt-new-in {
+  0% {
+    transform: scale(0.86) translateY(24px) rotate(1.5deg);
+    filter: blur(16px) brightness(0.6);
+    opacity: 0;
+  }
+
+  55% {
+    filter: blur(4px) brightness(1.15);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: scale(1) translateY(0) rotate(0deg);
+    filter: blur(0px) brightness(1);
+    opacity: 1;
+  }
+}
+
+/* Vệt sáng neon "quét" qua trang mới lúc vừa hiện ra,
+   đồng bộ tông màu cyan-purple-fuchsia của theme */
+@keyframes vt-new-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(6, 182, 212, 0);
+  }
+
+  45% {
+    box-shadow:
+      0 0 120px 30px rgba(147, 51, 234, 0.25),
+      0 0 60px 10px rgba(6, 182, 212, 0.2);
+  }
+}
+
+/* Tôn trọng cài đặt giảm chuyển động */
+@media (prefers-reduced-motion: reduce) {
+
+  ::view-transition-group(root),
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
+
+/* Fallback cho Firefox/Safari — không hỗ trợ view transitions
+   Chỉ animate trang mới scale + blur vào, KHÔNG fade out trang cũ → không chớp */
+@supports not (view-transition-name: none) {
+  body {
+    animation: fb-page-in 480ms cubic-bezier(0.34, 1.56, 0.44, 1) both;
+    transform-origin: bottom right;
+  }
+
+  @keyframes fb-page-in {
+    from {
+      transform: scale(0.94) translateY(16px);
+      filter: blur(10px);
+      opacity: 0;
+    }
+
+    to {
+      transform: scale(1) translateY(0);
+      filter: blur(0px);
+      opacity: 1;
+    }
+  }
+}
+
+/* ============================================================
+   14. SWITCHER INLINE (dùng trong header watch/notes)
+   ============================================================ */
+.switcher.switcher--inline {
+  position: static;
+  top: auto;
+  right: auto;
+  z-index: 1;
+}
+
+/* Trên mobile vẫn ẩn switcher cho gọn header */
+@media (max-width: 767px) {
+  .switcher.switcher--inline {
+    display: none;
+  }
 }
