@@ -325,3 +325,13 @@ document.addEventListener('DOMContentLoaded', () => {
     showToast('Đã khôi phục dữ liệu mặc định.');
   });
 });
+/* ============================================================
+   BRIDGE cho auth.js (append, không sửa code phía trên)
+   ============================================================ */
+window.portfolio = {
+  getState: () => state,
+  setState: (s) => { state = s; },
+  renderUI,
+  saveState,
+  showToast
+};
