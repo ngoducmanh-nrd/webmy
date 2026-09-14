@@ -165,7 +165,7 @@
 
       <!-- Actions -->
       <div class="sidebar-actions">
-        <button id="openEditorBtn" class="sidebar-link sidebar-action-btn w-full" data-close-sidebar>
+        <button id="openEditorBtn" class="sidebar-link sidebar-action-btn w-full hidden" data-close-sidebar>
           <i data-lucide="edit-3" class="w-4 h-4"></i>
           <span>Chỉnh sửa</span>
         </button>
@@ -173,7 +173,16 @@
           <i data-lucide="github" class="w-4 h-4"></i>
           <span>GitHub</span>
         </a>
-      </div>
+      <!-- MỚI: auth -->
+      <button id="loginBtn" class="sidebar-link sidebar-action-btn w-full">
+        <i data-lucide="log-in" class="w-4 h-4"></i>
+        <span>Đăng nhập admin</span>
+      </button>
+      <button id="logoutBtn" class="sidebar-link sidebar-action-btn w-full hidden">
+        <i data-lucide="log-out" class="w-4 h-4"></i>
+        <span>Đăng xuất</span>
+      </button>
+    </div>
 
     </div>
   </aside>
@@ -369,6 +378,7 @@
   </div>
 
   <script src="script.js" defer></script>
+<script type="module" src="auth.js"></script>
 </body>
 
 </html>
