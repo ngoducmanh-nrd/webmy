@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ngô Đức Mạnh - Portfolio</title>
+  <meta name="description" content="Portfolio of Ngô Đức Mạnh, IT Student at UMT & Software Developer.">
+  <meta property="og:title" content="Ngô Đức Mạnh - Profile">
+  <meta property="og:description" content="IT Student at UMT & Software Developer.">
+  <meta property="og:image"
+    content="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80">
+  <meta property="og:url" content="https://yourdomain.com/">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Inter"', 'sans-serif'],
+          },
+          colors: {
+            neon: {
+              cyan: '#06b6d4',
+              purple: '#9333ea',
+              magenta: '#d946ef'
+            }
+          },
+          animation: {
+            'blob-float': 'blobFloat 20s ease-in-out infinite alternate',
+            'blob-float-rev': 'blobFloatRev 25s ease-in-out infinite alternate',
+          },
+          keyframes: {
+            blobFloat: {
+              '0%': { transform: 'translate(0px, 0px) scale(1)' },
+              '33%': { transform: 'translate(40px, -60px) scale(1.1)' },
+              '66%': { transform: 'translate(-30px, 30px) scale(0.9)' },
+              '100%': { transform: 'translate(20px, -20px) scale(1.05)' },
+            },
+            blobFloatRev: {
+              '0%': { transform: 'translate(0px, 0px) scale(1)' },
+              '50%': { transform: 'translate(-50px, -40px) scale(1.2)' },
+              '100%': { transform: 'translate(40px, 50px) scale(0.85)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body
+  class="font-sans min-h-screen relative overflow-x-hidden selection:bg-cyan-900 selection:text-cyan-100 text-slate-200">
+
+  <!-- ========= Background Overlay ========= -->
+  <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+    <!-- Dark vignette overlay for text readability -->
+    <div class="bg-overlay"></div>
+    <!-- Subtle floating light orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <!-- Noise texture -->
+    <div
+      class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay">
+    </div>
+  </div>
+
+  <!-- ========= Theme Switcher (fixed top-right) ========= -->
+  <fieldset class="switcher" c-previous="1">
+    <legend class="switcher__legend">Chọn giao diện</legend>
+
+    <label class="switcher__option" title="Sáng">
+      <input class="switcher__input" type="radio" name="theme" value="light" c-option="1" />
+      <svg class="switcher__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 36">
+        <path fill="var(--c)" fill-rule="evenodd"
+          d="M18 12a6 6 0 1 1 0 12 6 6 0 0 1 0-12Zm0 2a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z" clip-rule="evenodd" />
+        <path fill="var(--c)"
+          d="M17 6.038a1 1 0 1 1 2 0v3a1 1 0 0 1-2 0v-3ZM24.244 7.742a1 1 0 1 1 1.618 1.176L24.1 11.345a1 1 0 1 1-1.618-1.176l1.763-2.427ZM29.104 13.379a1 1 0 0 1 .618 1.902l-2.854.927a1 1 0 1 1-.618-1.902l2.854-.927ZM29.722 20.795a1 1 0 0 1-.619 1.902l-2.853-.927a1 1 0 1 1 .618-1.902l2.854.927ZM25.862 27.159a1 1 0 0 1-1.618 1.175l-1.763-2.427a1 1 0 1 1 1.618-1.175l1.763 2.427ZM19 30.038a1 1 0 0 1-2 0v-3a1 1 0 1 1 2 0v3ZM11.755 28.334a1 1 0 0 1-1.618-1.175l1.764-2.427a1 1 0 1 1 1.618 1.175l-1.764 2.427ZM6.896 22.697a1 1 0 1 1-.618-1.902l2.853-.927a1 1 0 1 1 .618 1.902l-2.853.927ZM6.278 15.28a1 1 0 1 1 .618-1.901l2.853.927a1 1 0 1 1-.618 1.902l-2.853-.927ZM10.137 8.918a1 1 0 0 1 1.618-1.176l1.764 2.427a1 1 0 0 1-1.618 1.176l-1.764-2.427Z" />
+      </svg>
+    </label>
+
+    <label class="switcher__option" title="Tối">
+      <input class="switcher__input" type="radio" name="theme" value="dark" c-option="2" checked />
+      <svg class="switcher__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 36">
+        <path fill="var(--c)"
+          d="M12.5 8.473a10.968 10.968 0 0 1 8.785-.97 7.435 7.435 0 0 0-3.737 4.672l-.09.373A7.454 7.454 0 0 0 28.732 20.4a10.97 10.97 0 0 1-5.232 7.125l-.497.27c-5.014 2.566-11.175.916-14.234-3.813l-.295-.483C5.53 18.403 7.13 11.93 12.017 8.77l.483-.297Zm4.234.616a8.946 8.946 0 0 0-2.805.883l-.429.234A9 9 0 0 0 10.206 22.5l.241.395A9 9 0 0 0 22.5 25.794l.416-.255a8.94 8.94 0 0 0 2.167-1.99 9.433 9.433 0 0 1-2.782-.313c-5.043-1.352-8.036-6.535-6.686-11.578l.147-.491c.242-.745.573-1.44.972-2.078Z" />
+      </svg>
+    </label>
+
+    <label class="switcher__option" title="Mờ">
+      <input class="switcher__input" type="radio" name="theme" value="dim" c-option="3" />
+      <svg class="switcher__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 36">
+        <path fill="var(--c)"
+          d="M5 21a1 1 0 0 1 1-1h24a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1ZM12 25a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1ZM15 29a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2h-4a1 1 0 0 1-1-1ZM18 13a6 6 0 0 1 5.915 7h-2.041A4.005 4.005 0 0 0 18 15a4 4 0 0 0-3.874 5h-2.041A6 6 0 0 1 18 13ZM17 7.038a1 1 0 1 1 2 0v3a1 1 0 0 1-2 0v-3ZM24.244 8.742a1 1 0 1 1 1.618 1.176L24.1 12.345a1 1 0 1 1-1.618-1.176l1.763-2.427ZM29.104 14.379a1 1 0 0 1 .618 1.902l-2.854.927a1 1 0 1 1-.618-1.902l2.854-.927ZM6.278 16.28a1 1 0 1 1 .618-1.901l2.853.927a1 1 0 1 1-.618 1.902l-2.853-.927ZM10.137 9.918a1 1 0 0 1 1.618-1.176l1.764 2.427a1 1 0 0 1-1.618 1.176l-1.764-2.427Z" />
+      </svg>
+    </label>
+  </fieldset>
+
+  <!-- ========= Sidebar Toggle Button (circular round button) ========= -->
+  <button id="sidebarToggle"
+    class="fixed top-6 left-6 z-[70] sidebar-toggle-btn focus:outline-none"
+    aria-label="Mở/Đóng menu" aria-expanded="false">
+    <span class="sidebar-toggle-icon-wrap">
+      <i data-lucide="menu" class="sidebar-icon-menu"></i>
+      <i data-lucide="x" class="sidebar-icon-close"></i>
+    </span>
+  </button>
+
+  <!-- ========= Sidebar Overlay ========= -->
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+  <!-- ========= Glass Floating Menu Card ========= -->
+  <aside id="sidebar" class="sidebar" aria-label="Menu điều hướng">
+    <div class="sidebar-inner">
+
+      <!-- Header row aligned with toggle button -->
+      <div class="sidebar-header">
+        <div class="sidebar-header-spacer"></div>
+        <span class="sidebar-header-badge">Menu</span>
+      </div>
+
+      <!-- Profile section -->
+      <div class="sidebar-profile">
+        <div class="flex items-center gap-3">
+          <div
+            class="zap-icon-badge w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-purple-500 to-fuchsia-500 p-[2px] shadow-md shadow-purple-500/20 shrink-0">
+            <div class="w-full h-full rounded-[10px] bg-slate-900/80 flex items-center justify-center backdrop-blur-sm">
+              <i data-lucide="zap" class="w-4 h-4 text-cyan-400 fill-current"></i>
+            </div>
+          </div>
+          <div class="min-w-0 flex-1">
+            <p id="navName" class="font-semibold text-sm text-white tracking-wide truncate">Ngô Đức Mạnh</p>
+            <p class="text-[11px] text-slate-400">Portfolio</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="sidebar-divider"></div>
+
+      <!-- Navigation links -->
+      <nav class="sidebar-nav">
+        <a href="#hero" class="sidebar-link" data-close-sidebar>
+          <i data-lucide="home" class="w-4 h-4"></i>
+          <span>Trang chủ</span>
+        </a>
+        <a href="#projects" class="sidebar-link" data-close-sidebar>
+          <i data-lucide="layout-grid" class="w-4 h-4"></i>
+          <span>Dự án</span>
+        </a>
+      </nav>
+
+      <!-- Divider -->
+      <div class="sidebar-divider"></div>
+
+      <!-- Actions -->
+      <div class="sidebar-actions">
+        <button id="openEditorBtn" class="sidebar-link sidebar-action-btn w-full" data-close-sidebar>
+          <i data-lucide="edit-3" class="w-4 h-4"></i>
+          <span>Chỉnh sửa</span>
+        </button>
+        <a id="sidebarGithub" href="https://github.com/manhnd" target="_blank" rel="noopener" class="sidebar-link">
+          <i data-lucide="github" class="w-4 h-4"></i>
+          <span>GitHub</span>
+        </a>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- ========= Main ========= -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 pt-36 pb-32 space-y-20">
+
+    <section id="hero" class="animate-spring delay-100 relative">
+      <div
+        class="glass-panel rounded-[2rem] p-8 sm:p-12 flex flex-col md:flex-row items-center gap-10 text-center md:text-left">
+
+        <div class="relative w-40 h-40 sm:w-48 sm:h-48 shrink-0 spring-btn cursor-pointer group">
+          <div
+            class="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-500 via-purple-500 to-fuchsia-500 blur-xl opacity-40 group-hover:opacity-70 transition-opacity duration-500">
+          </div>
+          <div
+            class="relative w-full h-full rounded-full p-1.5 glass-panel flex items-center justify-center overflow-hidden">
+            <img id="avatarImage"
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80"
+              alt="Avatar" class="w-full h-full object-cover rounded-full shadow-inner bg-slate-800" loading="lazy"
+              referrerpolicy="no-referrer"
+              onerror="this.onerror=null;this.src='https://placehold.co/400x400/1e293b/f8fafc?text=Manh'" />
+          </div>
+        </div>
+
+        <div class="flex-1 space-y-6">
+          <div
+            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-medium shadow-sm backdrop-blur-md">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_rgba(34,211,238,0.8)]"></span>
+            <span id="heroStatusText">Sẵn sàng đón nhận cơ hội mới</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-white leading-tight">
+            Xin chào, tôi là <br />
+            <span id="heroName"
+              class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-fuchsia-400">
+              Ngô Đức Mạnh
+            </span>
+          </h1>
+
+          <p id="heroHeadline"
+            class="text-base sm:text-lg text-slate-400 font-normal leading-relaxed max-w-xl mx-auto md:mx-0">
+            IT Student at UMT &amp; Software Developer
+          </p>
+
+          <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-2">
+            <a href="#projects"
+              class="spring-btn explore-btn px-6 py-3 rounded-xl text-sm font-semibold flex items-center gap-2">
+              <span>Khám phá Dự án</span>
+              <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+            </a>
+            <a id="heroGithub" href="https://github.com/manhnd" target="_blank" rel="noopener"
+              class="spring-btn px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-200 hover:text-white hover:bg-white/10 text-sm font-semibold shadow-sm flex items-center gap-2 backdrop-blur-md">
+              <i data-lucide="github" class="w-4 h-4"></i>
+              <span>GitHub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="animate-spring delay-200 space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 px-2">
+        <div class="space-y-1">
+          <h2 class="text-2xl font-bold text-white flex items-center gap-3">
+            <i data-lucide="layout-grid" class="w-6 h-6 text-cyan-400"></i> Kho Dự Án
+          </h2>
+          <p class="text-sm text-slate-400">Các phần mềm, công cụ và ứng dụng nổi bật.</p>
+        </div>
+      </div>
+
+      <div id="projectsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+  </main>
+
+  <!-- ========= Footer ========= -->
+  <footer
+    class="fixed bottom-0 inset-x-0 z-40 border-t border-white/10 py-2 text-center text-xs text-slate-500 bg-slate-900/40 backdrop-blur-lg">
+    <div class="max-w-4xl mx-auto px-4 flex items-center justify-center gap-1">
+      <p>© 2026 Ngô Đức Mạnh.</p>
+      <span>·</span>
+      <div class="flex items-center gap-1">
+        <span>Crafted with</span>
+        <i data-lucide="heart" class="w-4 h-4 text-fuchsia-500 fill-fuchsia-500 mx-1"></i>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========= Editor Modal ========= -->
+  <div id="editorModal"
+    class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-[400ms]">
+    <div id="modalContent"
+      class="glass-panel rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-6 shadow-[0_0_50px_rgba(0,0,0,0.8)] relative transition-transform duration-500 scale-95 border border-white/20">
+
+      <div class="flex items-center justify-between border-b border-white/10 pb-4">
+        <div class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center border border-purple-500/30">
+            <i data-lucide="settings-2" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white">Chỉnh sửa Portfolio</h3>
+        </div>
+        <button id="closeEditorBtn"
+          class="p-2 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-colors spring-btn">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="profileEditForm" class="space-y-5 text-sm">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="space-y-1.5">
+            <label class="block text-xs font-semibold text-slate-400">Họ và tên</label>
+            <input id="inputName" type="text"
+              class="w-full px-4 py-2.5 rounded-xl bg-slate-900/50 border border-white/10 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 focus:outline-none text-white transition-all shadow-inner" />
+          </div>
+          <div class="space-y-1.5">
+            <label class="block text-xs font-semibold text-slate-400">Trạng thái (Status)</label>
+            <input id="inputStatus" type="text"
+              class="w-full px-4 py-2.5 rounded-xl bg-slate-900/50 border border-white/10 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 focus:outline-none text-white transition-all shadow-inner" />
+          </div>
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="block text-xs font-semibold text-slate-400">Chức danh / Headline</label>
+          <textarea id="inputHeadline" rows="2"
+            class="w-full px-4 py-2.5 rounded-xl bg-slate-900/50 border border-white/10 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 focus:outline-none text-white transition-all shadow-inner resize-none"></textarea>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="space-y-1.5">
+            <label class="block text-xs font-semibold text-slate-400">Link ảnh Avatar</label>
+            <input id="inputAvatar" type="url"
+              class="w-full px-4 py-2.5 rounded-xl bg-slate-900/50 border border-white/10 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 focus:outline-none text-white transition-all shadow-inner" />
+          </div>
+          <div class="space-y-1.5">
+            <label class="block text-xs font-semibold text-slate-400">GitHub Link</label>
+            <input id="inputGithub" type="url"
+              class="w-full px-4 py-2.5 rounded-xl bg-slate-900/50 border border-white/10 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 focus:outline-none text-white transition-all shadow-inner" />
+          </div>
+        </div>
+
+        <div class="pt-6 border-t border-white/10 space-y-4">
+          <div class="flex items-center gap-2 text-white">
+            <i data-lucide="folder-plus" class="w-5 h-5 text-cyan-400"></i>
+            <h4 class="text-sm font-bold">Thêm Dự án mới</h4>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <input id="newProjTitle" placeholder="Tên dự án (VD: FlowDrop)..." type="text"
+              class="px-4 py-2.5 rounded-xl bg-slate-900/50 border border-white/10 text-sm text-white shadow-inner focus:border-cyan-500 focus:outline-none" />
+            <input id="newProjTags" placeholder="Công nghệ (VD: C++, Qt)" type="text"
+              class="px-4 py-2.5 rounded-xl bg-slate-900/50 border border-white/10 text-sm text-white shadow-inner focus:border-cyan-500 focus:outline-none" />
+          </div>
+          <input id="newProjDesc" placeholder="Mô tả dự án..." type="text"
+            class="w-full px-4 py-2.5 rounded-xl bg-slate-900/50 border border-white/10 text-sm text-white shadow-inner focus:border-cyan-500 focus:outline-none" />
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <input id="newProjLive" placeholder="Link Demo Live..." type="url"
+              class="px-4 py-2.5 rounded-xl bg-slate-900/50 border border-white/10 text-sm text-white shadow-inner focus:border-cyan-500 focus:outline-none" />
+            <input id="newProjRepo" placeholder="Link GitHub..." type="url"
+              class="px-4 py-2.5 rounded-xl bg-slate-900/50 border border-white/10 text-sm text-white shadow-inner focus:border-cyan-500 focus:outline-none" />
+          </div>
+          <button type="button" id="addNewProjectBtn"
+            class="spring-btn w-full py-2.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-sm font-semibold text-cyan-400 transition-all flex items-center justify-center gap-2">
+            <i data-lucide="plus" class="w-4 h-4"></i> Thêm vào danh sách
+          </button>
+        </div>
+
+        <div class="flex items-center justify-between pt-6 border-t border-white/10">
+          <button type="button" id="resetDataBtn"
+            class="text-xs text-red-400 font-medium hover:underline hover:text-red-300">
+            Khôi phục mặc định
+          </button>
+          <div class="flex items-center gap-3">
+            <button type="button" id="cancelEditorBtn"
+              class="spring-btn px-5 py-2.5 rounded-xl bg-transparent border border-white/20 text-slate-300 hover:text-white hover:bg-white/5 font-medium text-sm">Hủy</button>
+            <button type="submit"
+              class="spring-btn px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-purple-600 text-white font-semibold text-sm shadow-lg shadow-cyan-900/40">Lưu
+              lại</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========= Toast ========= -->
+  <div id="toast"
+    class="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3 rounded-2xl bg-slate-800/90 border border-white/10 text-white text-sm font-medium translate-y-20 opacity-0 pointer-events-none transition-all duration-[400ms] shadow-2xl backdrop-blur-xl">
+    <div class="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center">
+      <i data-lucide="check" class="w-3.5 h-3.5"></i>
+    </div>
+    <span id="toastMsg">Thành công</span>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+
+</html>
