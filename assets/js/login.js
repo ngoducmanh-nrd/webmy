@@ -1,4 +1,4 @@
-import { supabase } from "./supabaseConfig.js";
+import { supabase } from "../../supabaseConfig.js";
 
 const form = document.getElementById("loginForm");
 const toast = document.getElementById("loginToast");
@@ -11,7 +11,7 @@ function showMsg(msg, isError = false) {
 
 // Nếu đã đăng nhập rồi thì về trang chủ luôn
 supabase.auth.getSession().then(({ data: { session } }) => {
-  if (session?.user) window.location.href = "index.html";
+  if (session?.user) window.location.href = "../index.html";
 });
 
 form.addEventListener("submit", async (e) => {
@@ -36,6 +36,6 @@ form.addEventListener("submit", async (e) => {
     submitBtn.classList.remove("opacity-50", "cursor-not-allowed");
   } else if (data?.session) {
     showMsg("Đăng nhập thành công! Đang chuyển hướng...");
-    window.location.href = "index.html";
+    window.location.href = "../index.html";
   }
 });

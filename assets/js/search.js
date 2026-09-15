@@ -1,4 +1,4 @@
-import { supabase } from "./supabaseConfig.js";
+import { supabase } from "../../supabaseConfig.js";
 
 /* ============================================================
    GLOBAL SEARCH — Ctrl+K popup
@@ -130,7 +130,7 @@ import { supabase } from "./supabaseConfig.js";
         items: notesRes.data.map(n => ({
           title: n.title || (n.content || '').slice(0, 60),
           sub: (n.content || '').slice(0, 100),
-          url: 'notes.html',
+          url: '/pages/notes.html',
           icon: 'sticky-note',
         })),
       });
@@ -143,7 +143,7 @@ import { supabase } from "./supabaseConfig.js";
         items: watchRes.data.map(w => ({
           title: w.title,
           sub: `${w.type || 'anime'} · ${w.current_ep || 0}/${w.total_ep || '?'} tập · ${w.status}`,
-          url: 'watch.html',
+          url: '/pages/watch.html',
           icon: 'tv',
         })),
       });
@@ -156,7 +156,7 @@ import { supabase } from "./supabaseConfig.js";
         items: projRes.data.map(p => ({
           title: p.title,
           sub: (p.desc || '').slice(0, 100),
-          url: 'index.html#projects',
+          url: '/index.html#projects',
           icon: 'layout-grid',
         })),
       });
@@ -169,7 +169,7 @@ import { supabase } from "./supabaseConfig.js";
         items: taskRes.data.map(t => ({
           title: t.title,
           sub: `${t.status} · ${t.desc ? t.desc.slice(0, 60) : 'không mô tả'}`,
-          url: 'tasks.html',
+          url: '/pages/tasks.html',
           icon: 'list-checks',
         })),
       });

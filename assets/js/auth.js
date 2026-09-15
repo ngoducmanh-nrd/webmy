@@ -1,5 +1,5 @@
 // auth.js — chỉ chạy trên index.html
-import { supabase } from "./supabaseConfig.js";
+import { supabase } from "../../supabaseConfig.js";
 
 /* ============================================================
    AUTH UI
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('loginBtn')?.addEventListener('click', () => {
-    window.location.href = 'login.html';
+    window.location.href = '/pages/login.html';
   });
 
   document.getElementById('logoutBtn')?.addEventListener('click', async () => {
